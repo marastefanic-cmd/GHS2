@@ -23,9 +23,37 @@ declare global {
 export class SettingsManager {
   EntityValueFunction = EntityValueFunction;
   defaultLocale: string = 'en';
-  defaultEditions: string[] = [...FORK_EDITIONS];
+  // Fork: only the supported editions in the real app; unit tests keep the upstream defaults
+  defaultEditions: string[] = forkLock.enabled ? [...FORK_EDITIONS] : ['gh', 'fh', 'jotl', 'fc', 'cs', 'toa', 'bb', 'gh2e', 'mp', 'rpg'];
 
-  defaultEditionDataUrls: string[] = [...FORK_EDITION_DATA_URLS];
+  defaultEditionDataUrls: string[] = forkLock.enabled
+    ? [...FORK_EDITION_DATA_URLS]
+    : [
+        './assets/data/gh.json',
+        './assets/data/fh.json',
+        './assets/data/jotl.json',
+        './assets/data/fc.json',
+        './assets/data/cs.json',
+        './assets/data/toa.json',
+        './assets/data/bb.json',
+        './assets/data/gh2e.json',
+        './assets/data/rpg.json',
+        './assets/data/bb-promotional.json',
+        './assets/data/fh-crossover.json',
+        './assets/data/gh-envx.json',
+        './assets/data/toa-envv.json',
+        './assets/data/mp.json',
+        './assets/data/ccug.json',
+        './assets/data/sc.json',
+        './assets/data/gh-solo-items.json',
+        './assets/data/sox.json',
+        './assets/data/bas.json',
+        './assets/data/cc.json',
+        './assets/data/cq.json',
+        './assets/data/ir.json',
+        './assets/data/r100kc.json',
+        './assets/data/sits.json'
+      ];
 
   settings: Settings = new Settings();
   label: any = {};
@@ -102,9 +130,11 @@ export class SettingsManager {
     }
     this.settings = settings;
     // Fork: drop any editions other than the supported ones (e.g. from imported settings)
-    this.settings.editions = (this.settings.editions || []).filter((edition) => FORK_EDITIONS.includes(edition));
-    this.settings.editionDataUrls = (this.settings.editionDataUrls || []).filter((url) => FORK_EDITION_DATA_URLS.includes(url));
-    this.settings.excludeEditionDataUrls = [];
+    if (forkLock.enabled) {
+      this.settings.editions = (this.settings.editions || []).filter((edition) => FORK_EDITIONS.includes(edition));
+      this.settings.editionDataUrls = (this.settings.editionDataUrls || []).filter((url) => FORK_EDITION_DATA_URLS.includes(url));
+      this.settings.excludeEditionDataUrls = [];
+    }
     if (!this.settings.editions || this.settings.editions.length === 0) {
       this.settings.editions.push(...this.defaultEditions);
     }
