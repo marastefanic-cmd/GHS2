@@ -3,7 +3,7 @@ import localeDe from '@angular/common/locales/de';
 import localeFr from '@angular/common/locales/fr';
 import localeKo from '@angular/common/locales/ko';
 import { Capacitor } from '@capacitor/core';
-import { FORK_EDITION_DATA_URLS, FORK_EDITIONS, forkLock } from 'src/app/fork-config';
+import { FORK_EDITION_DATA_URLS, FORK_EDITIONS, FORK_SETTINGS, forkLock } from 'src/app/fork-config';
 import { DebugManager, debugManager } from 'src/app/game/businesslogic/DebugManager';
 import { gameManager } from 'src/app/game/businesslogic/GameManager';
 import { storageManager } from 'src/app/game/businesslogic/StorageManager';
@@ -120,10 +120,9 @@ export class SettingsManager {
       }
     }
 
-    if (!settings.theme && forkLock.enabled) {
-      // Fork: fresh settings get what upstream applies when starting a Gloomhaven 2nd Edition campaign
-      settings.theme = 'default';
-      settings.fhStyle = true;
+    if (forkLock.enabled) {
+      // Fork: the group's shared settings always win over stored values
+      Object.assign(settings, FORK_SETTINGS);
     }
 
     if (!settings.theme) {

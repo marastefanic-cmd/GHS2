@@ -1,3 +1,5 @@
+import type { Settings } from 'src/app/game/model/Settings';
+
 /**
  * Fork configuration: this build only supports Gloomhaven 2nd Edition plus the Mercenary Packs characters.
  * Keep in sync with FORK_EDITIONS in scripts/build-data.js.
@@ -12,3 +14,32 @@ export const FORK_EDITION_DATA_URLS: string[] = FORK_EDITIONS.map((edition) => '
  * Not set in unit tests, so upstream tests, which switch editions freely, keep working.
  */
 export const forkLock = { enabled: (globalThis as { ghsForkLock?: boolean }).ghsForkLock === true };
+
+/**
+ * The group's shared settings. These are forced on every start (the settings menu is hidden), so changing a value
+ * here changes it for everyone. Anything not listed keeps the upstream default or the device's own value.
+ */
+export const FORK_SETTINGS: Partial<Settings> = {
+  // Display
+  theme: 'default',
+  automaticTheme: false,
+  fhStyle: true,
+  statAnimations: true,
+  columns: false,
+  // Automation
+  activeApplyConditions: false,
+  // Character
+  hideAbsent: true,
+  // Interface
+  damageHPToggle: false,
+  characterFullView: true,
+  hideCharacterHP: true,
+  hideCharacterLoot: true,
+  hideCharacterXP: true,
+  // Hints
+  errata: true,
+  backupHint: false,
+  // Game clock
+  gameClock: true,
+  automaticGameClock: false
+};
