@@ -1,33 +1,5 @@
 <div class="menu-container two-column sheets">
   <div class="line span">
-    <label
-      [ngClass]="{
-        disabled: !gameManager.game.edition || (gameManager.stateManager.permissions && !gameManager.stateManager.permissions.party)
-      }"
-    >
-      <input tabclick type="checkbox" [checked]="!gameManager.game.edition" (change)="setEdition()" />
-      &lt;<span [ghs-label]="'edition.all'"></span>&gt;
-    </label>
-  </div>
-  @for (edition of gameManager.editions(); track edition) {
-    <div class="line">
-      <label
-        [ngClass]="{
-          disabled:
-            gameManager.game.edition === edition || (gameManager.stateManager.permissions && !gameManager.stateManager.permissions.party)
-        }"
-      >
-        <input tabclick type="checkbox" [checked]="gameManager.game.edition === edition" (change)="setEdition(edition)" />
-        <span [ghs-label]="'data.edition.' + edition"></span>
-      </label>
-      @if (edition === 'fh' && gameManager.game.edition === edition) {
-        <div class="fh-second-edition">
-          <div ghs-setting-menu="fhSecondEdition" [hintAbove]="false"></div>
-        </div>
-      }
-    </div>
-  }
-  <div class="line separator">
     <label [ngClass]="{ disabled: gameManager.stateManager.permissions && !gameManager.stateManager.permissions.party }">
       <input tabclick type="checkbox" [checked]="gameManager.game.party.campaignMode" (change)="toggleCampaignMode()" />
       <span [ghs-label]="'party.campaignMode'"></span>

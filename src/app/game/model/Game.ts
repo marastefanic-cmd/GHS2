@@ -1,3 +1,4 @@
+import { FORK_EDITION, forkLock } from 'src/app/fork-config';
 import { gameManager } from 'src/app/game/businesslogic/GameManager';
 import { randomSeed } from 'src/app/game/businesslogic/RandomManager';
 import { settingsManager } from 'src/app/game/businesslogic/SettingsManager';
@@ -20,7 +21,14 @@ import { GameScenarioModel, Scenario } from 'src/app/game/model/Scenario';
 export class Game {
   revision: number = 0;
   revisionOffset: number = 0;
-  edition: string | undefined = undefined;
+  // Fork: the edition is locked, attempts to change it are ignored.
+  private _edition: string | undefined = undefined;
+  get edition(): string | undefined {
+    return forkLock.enabled ? FORK_EDITION : this._edition;
+  }
+  set edition(edition: string | undefined) {
+    this._edition = edition;
+  }
   conditions: ConditionName[] = [];
   battleGoalEditions: string[] = [];
   filteredBattleGoals: Identifier[] = [];
@@ -71,6 +79,10 @@ export class Game {
   constructor() {
     this.elementBoard = JSON.parse(JSON.stringify(defaultElementBoard));
     this.party = new Party();
+    if (forkLock.enabled) {
+      this.party.edition = FORK_EDITION;
+      this.party.campaignMode = true;
+    }
     this.parties = [this.party];
   }
 

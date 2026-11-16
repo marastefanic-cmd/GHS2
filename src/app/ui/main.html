@@ -70,7 +70,7 @@
       @if (gameManager.game.edition) {
         <div class="container-row bordered">
           <div class="editions">
-            <a tabclick class="edition selected" (click)="cancelCampaign(gameManager.game.edition)">
+            <a class="edition selected">
               @if (gameManager.editionLogo(gameManager.game.edition)) {
                 <img [src]="gameManager.editionLogo(gameManager.game.edition)" [ghs-tooltip]="'data.edition.' + gameManager.game.edition" />
               }
@@ -120,12 +120,6 @@
         }
         <a tabclick class="add-characters" (click)="header.openMenu(SubMenu.character_add)">
           <span [ghs-label]="'hints.addCharacters'"></span>
-        </a>
-      </div>
-      <div class="container-row settings">
-        <p [ghs-label]="'welcome.settings.text'"></p>
-        <a tabclick class="settings-menu" (click)="header.openMenu(SubMenu.settings)">
-          <span [ghs-label]="'welcome.settings'"></span>
         </a>
       </div>
       @if (loading) {

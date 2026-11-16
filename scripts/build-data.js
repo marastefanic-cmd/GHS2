@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const input_dir = './data';
 const output_dir = './src/assets/data';
+// Fork: only these editions are built and shipped. Keep in sync with src/app/fork-config.ts.
+const FORK_EDITIONS = ['gh2e', 'mp'];
 
 const load_subfolder = function (edition_path, folder, default_value) {
   const dir = path.join(edition_path, folder);
@@ -47,7 +49,8 @@ const load_file = function (edition_path, file, default_value) {
 const edition_dirs = fs
   .readdirSync(input_dir)
   .map((file) => path.join(input_dir, file))
-  .filter((file_path) => fs.lstatSync(file_path).isDirectory());
+  .filter((file_path) => fs.lstatSync(file_path).isDirectory())
+  .filter((file_path) => FORK_EDITIONS.includes(path.basename(file_path)));
 
 for (edition_path of edition_dirs) {
   // console.debug("\n\n------Load edition: '" + edition_path + "'-------");

@@ -36,14 +36,6 @@
         </div>
       </div>
       <div class="column">
-        <div class="line">
-          <a tabclick (click)="exportSettings()"><span [ghs-label]="'datamanagement.exportSettings'"></span></a>
-        </div>
-        <div class="line">
-          <a tabclick (click)="resetSettings()" [ngClass]="{ 'confirm-delete': confirm === 'resetSettings' }" (mouseleave)="cancelConfirm()"
-            >&lt;<span [ghs-label]="'datamanagement.resetSettings'"></span>(!)&gt;</a
-          >
-        </div>
         <div class="line" ghs-setting-menu="serverExportCode"></div>
       </div>
       <div class="column">
@@ -379,76 +371,6 @@
         }
       </div>
     }
-
-    <div class="column">
-      <div
-        class="line title sticky"
-        [ngClass]="{ fh: settingsManager.settings.theme === 'fh', modern: settingsManager.settings.theme === 'modern' }"
-      >
-        <label><span [ghs-label]="'datamanagement.editionDataUrls'"></span></label>
-      </div>
-      <div class="line">
-        <span class="input-button">
-          <input
-            tabclick
-            type="text"
-            #inputEditionDataUrl
-            (keyup.enter)="addEditionDataUrl($event.target)"
-            (keyup)="inputEditionDataUrl.classList.remove('error')"
-            [ghs-label]="'datamanagement.addEditionDataUrl'"
-            [ghs-label-attribute]="'placeholder'"
-          />
-          <span
-            class="add-button"
-            (click)="addEditionDataUrl(inputEditionDataUrl)"
-            [ngClass]="{ disabled: !inputEditionDataUrl.value }"
-          ></span>
-        </span>
-      </div>
-      <div class="line editions" cdkDropList (cdkDropListDropped)="drop($event)">
-        @for (editionData of gameManager.editionData | trackUUID; track editionData._trackUUID) {
-          <a class="edition" cdkDrag>
-            <label
-              [ghs-label]="
-                settingsManager.settings.editions.includes(editionData.edition)
-                  ? 'datamanagement.editionDataUrls.disable'
-                  : 'datamanagement.editionDataUrls.enable'
-              "
-              [ghs-label-attribute]="'title'"
-            >
-              <input
-                tabclick
-                type="checkbox"
-                [checked]="settingsManager.settings.editions.includes(editionData.edition)"
-                (change)="toggleEdition(editionData)"
-              />
-              <span [ghs-label]="'data.edition.' + editionData.edition"></span>
-            </label>
-            @if (!settingsManager.defaultEditionDataUrls.includes(editionData.url)) {
-              <span class="custom" [ghs-label]="'datamanagement.editionDataUrls.custom'" [ghs-label-attribute]="'title'">
-                <img src="./assets/images/hint.svg" />
-                <span class="url">{{ editionData.url }}</span>
-              </span>
-            }
-            <span class="spacer"></span>
-            <span
-              (click)="removeEditionDataUrl(editionData.url)"
-              [ghs-label]="'datamanagement.editionDataUrls.remove'"
-              [ghs-label-attribute]="'title'"
-              class="remove"
-            ></span>
-          </a>
-        }
-      </div>
-      <div class="spacer"></div>
-      @if (!hasDefaultEditionData()) {
-        <div class="line separator">
-          <a tabclick (click)="settingsManager.restoreDefaultEditionDataUrls()">
-            <span [ghs-label]="'datamanagement.restoreEditionDataUrls'"></span>
-          </a>
-        </div>
-      }
-    </div>
 
     @if (!editionsOnly()) {
       <div class="column">

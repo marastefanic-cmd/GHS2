@@ -12,10 +12,9 @@ import { SettingMenuComponent } from 'src/app/ui/header/menu/settings/setting/se
 import { GhsLabelDirective } from 'src/app/ui/helper/label';
 import { downloadJson, ghsInputFullScreenCheck } from 'src/app/ui/helper/Static';
 import { TabClickDirective } from 'src/app/ui/helper/tabclick';
-import { TrackUUIDPipe } from 'src/app/ui/helper/trackUUID';
 
 @Component({
-  imports: [NgClass, DragDropModule, GhsLabelDirective, TabClickDirective, TrackUUIDPipe, SettingMenuComponent],
+  imports: [NgClass, DragDropModule, GhsLabelDirective, TabClickDirective, SettingMenuComponent],
   selector: 'ghs-datamanagement-menu',
   templateUrl: 'datamanagement.html',
   styleUrls: ['../menu.scss', 'datamanagement.scss']

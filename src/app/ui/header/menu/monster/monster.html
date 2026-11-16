@@ -8,12 +8,6 @@
     }"
   >
     <input [(ngModel)]="filter" type="text" [ghs-label]="'monster.filter'" [ghs-label-attribute]="'placeholder'" />
-    @if (gameManager.game.edition) {
-      <label>
-        <input tabclick type="checkbox" [checked]="allEditions" (change)="allEditions = !allEditions" />
-        <span [ghs-label]="'character.filter.allEditions'"></span>
-      </label>
-    }
     <label [ngClass]="{ disabled: !hasBossMonster() }">
       <input
         tabclick

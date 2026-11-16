@@ -21,12 +21,6 @@
           [ghs-label]="'character.filter'"
           [ghs-label-attribute]="'placeholder'"
         />
-        @if (gameManager.game.edition) {
-          <label>
-            <input tabclick type="checkbox" [checked]="allEditions" (change)="allEditions = !allEditions; update()" />
-            <span [ghs-label]="'character.filter.allEditions'"></span>
-          </label>
-        }
       </div>
     </div>
   }
