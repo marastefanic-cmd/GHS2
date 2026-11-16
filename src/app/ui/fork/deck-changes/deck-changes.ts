@@ -27,6 +27,16 @@ export class ForkDeckChangesComponent extends CharacterSheetSection {
     );
   }
 
+  changeExtraPerks(delta: number) {
+    const value = Math.max(0, this.character.progress.extraPerks + delta);
+    if (this.locked || value === this.character.progress.extraPerks) {
+      return;
+    }
+    gameManager.stateManager.before('setExtraPerks', this.characterName, value);
+    this.character.progress.extraPerks = value;
+    gameManager.stateManager.after();
+  }
+
   toggle(change: DeckChange) {
     if (this.locked) {
       return;

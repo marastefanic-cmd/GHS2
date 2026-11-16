@@ -1,5 +1,11 @@
 <div class="deck-changes">
-  <label class="headline">Permanent deck changes</label>
+  <label class="headline">Custom changes</label>
+  <div class="extra-perks" [class.disabled]="locked">
+    <span class="text">Extra perk points (retirements, masteries, battle goals)</span>
+    <a class="step" (click)="changeExtraPerks(-1)">−</a>
+    <span class="value">{{ character.progress.extraPerks }}</span>
+    <a class="step" (click)="changeExtraPerks(1)">+</a>
+  </div>
   @for (change of changes; track change.itemId) {
     <label class="change" [class.disabled]="locked">
       <input type="checkbox" [checked]="active(change)" [disabled]="locked" (change)="toggle(change)" />
@@ -7,6 +13,6 @@
     </label>
   }
   @if (nextScenarioHint) {
-    <span class="hint">Changes made during a scenario apply from the next scenario.</span>
+    <span class="hint">Deck changes made during a scenario apply from the next scenario.</span>
   }
 </div>

@@ -5,29 +5,57 @@
 .deck-changes {
   display: flex;
   flex-direction: column;
-  margin: calc(var(--ghs-unit) * 1 * var(--ghs-dialog-factor)) 0;
+  gap: calc(var(--ghs-unit) * 1 * var(--ghs-dialog-factor));
+  font-family: var(--ghs-font-text);
+  font-size: calc(var(--ghs-unit) * 2.4 * var(--ghs-dialog-factor));
 
   .headline {
     font-family: var(--ghs-font-title);
-    font-size: calc(var(--ghs-unit) * 2.2 * var(--ghs-dialog-factor));
-    margin-bottom: calc(var(--ghs-unit) * 0.5 * var(--ghs-dialog-factor));
+    font-size: calc(var(--ghs-unit) * 2.8 * var(--ghs-dialog-factor));
+    border-bottom: calc(var(--ghs-unit) * 0.15) solid var(--ghs-color-darkgray);
+  }
+
+  .extra-perks {
+    display: flex;
+    align-items: center;
+
+    .text {
+      flex-grow: 1;
+    }
+
+    .value {
+      min-width: calc(var(--ghs-unit) * 5 * var(--ghs-dialog-factor));
+      text-align: center;
+      font-family: var(--ghs-font-title);
+      font-size: calc(var(--ghs-unit) * 3 * var(--ghs-dialog-factor));
+    }
+
+    .step {
+      cursor: pointer;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: calc(var(--ghs-unit) * 5 * var(--ghs-dialog-factor));
+      height: calc(var(--ghs-unit) * 5 * var(--ghs-dialog-factor));
+      font-size: calc(var(--ghs-unit) * 3.5 * var(--ghs-dialog-factor));
+      border: calc(var(--ghs-unit) * 0.25) solid var(--ghs-color-darkgray);
+      border-radius: calc(var(--ghs-unit) * 0.6);
+      color: #000;
+      user-select: none;
+    }
   }
 
   .change {
     display: flex;
     align-items: center;
     cursor: pointer;
-    font-family: var(--ghs-font-text);
-    font-size: calc(var(--ghs-unit) * 1.7 * var(--ghs-dialog-factor));
-
-    &.disabled {
-      cursor: default;
-      opacity: 0.6;
-    }
+    min-height: calc(var(--ghs-unit) * 5 * var(--ghs-dialog-factor));
 
     input {
       flex-shrink: 0;
-      margin-right: calc(var(--ghs-unit) * 1 * var(--ghs-dialog-factor));
+      font-size: calc(var(--ghs-unit) * 3.5 * var(--ghs-dialog-factor));
+      margin-right: calc(var(--ghs-unit) * 1.5 * var(--ghs-dialog-factor));
       color: #000;
 
       // the app's check mark is light gray, which is invisible on the white sheet
@@ -38,9 +66,13 @@
     }
   }
 
+  .disabled {
+    cursor: default;
+    opacity: 0.6;
+  }
+
   .hint {
-    font-family: var(--ghs-font-text);
     font-style: italic;
-    font-size: calc(var(--ghs-unit) * 1.6 * var(--ghs-dialog-factor));
+    font-size: calc(var(--ghs-unit) * 1.8 * var(--ghs-dialog-factor));
   }
 }

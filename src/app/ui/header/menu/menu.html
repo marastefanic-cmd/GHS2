@@ -115,7 +115,7 @@
           <div
             class="line span"
             [ngClass]="{
-              disabled: characters().length < 2,
+              disabled: characters().length === 0,
               denied: gameManager.stateManager.permissions && !gameManager.stateManager.permissions.characters
             }"
           >

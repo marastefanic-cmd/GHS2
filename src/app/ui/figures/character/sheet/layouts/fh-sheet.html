@@ -38,7 +38,6 @@
       <ghs-character-sheet-battle-goals [character]="character" [checkmark]="'checkmark'" />
     </div>
     <hr class="compact-separator" />
-    <ghs-fork-deck-changes class="row" [character]="character" [editable]="editable()" [forceEdit]="forceEdit()" />
   </div>
 </div>
 
@@ -53,7 +52,10 @@
     </div>
     <div class="column column-right notes">
       <ghs-character-sheet-player [character]="character" />
-      <ghs-character-sheet-counters [character]="character" [retirements]="false" />
+      @if (!jotl) {
+        <ghs-character-sheet-personal-quest [character]="character" [editable]="editable()" [dialogRef]="dialogRef()" [fh]="true" />
+      }
+      <ghs-character-sheet-counters [character]="character" [retirements]="!jotl" />
       <ghs-character-sheet-set-aside [character]="character" [editable]="editable()" [dialogRef]="dialogRef()" />
       <hr class="compact-separator" />
       <ghs-character-sheet-import-export [character]="character" />

@@ -1,0 +1,35 @@
+<div class="light character-sheet fork-sheet" [style.--ghs-character-color]="character.color">
+  <div class="fork-container" [ngClass]="{ denied: denied, 'view-only': locked }">
+    <div class="fork-title">
+      <img [src]="character.iconUrl" />
+      <span>{{ className }}</span>
+    </div>
+
+    <div class="fork-row">
+      <ghs-character-sheet-name [character]="character" />
+    </div>
+
+    <label class="fork-headline">Level</label>
+    <div class="fork-levels">
+      @for (level of levels; track level) {
+        <a
+          class="fork-level"
+          [ngClass]="{ selected: character.level === level, reached: character.level > level }"
+          (click)="setLevel(level)"
+        >
+          {{ level }}
+        </a>
+      }
+    </div>
+
+    <ghs-fork-deck-changes [character]="character" [editable]="editable()" [forceEdit]="forceEdit()" />
+
+    <label class="fork-headline">
+      Perks
+      <span class="fork-perk-points" [ngClass]="{ warning: availablePerks < 0 }">{{ availablePerks }} perk points left</span>
+    </label>
+    <div class="fork-perks">
+      <ghs-character-sheet-perks [character]="character" [editable]="editable()" [forceEdit]="forceEdit()" />
+    </div>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { forkLock } from 'src/app/fork-config';
 import { gameManager } from 'src/app/game/businesslogic/GameManager';
 import { GhsManager } from 'src/app/game/businesslogic/GhsManager';
 import { CharacterProgress } from 'src/app/game/model/CharacterProgress';
@@ -10,12 +11,13 @@ import { CharacterSheetFhComponent } from 'src/app/ui/figures/character/sheet/la
 import { CharacterSheetGhComponent } from 'src/app/ui/figures/character/sheet/layouts/gh-sheet';
 import { CharacterSheetRpgComponent } from 'src/app/ui/figures/character/sheet/layouts/rpg-sheet';
 import { CharacterSheetSection } from 'src/app/ui/figures/character/sheet/sections/section';
+import { ForkCharacterSheetComponent } from 'src/app/ui/fork/character-sheet/fork-character-sheet';
 
 export type CharacterSheetType = 'gh' | 'fh' | 'rpg';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgClass, CharacterSheetGhComponent, CharacterSheetFhComponent, CharacterSheetRpgComponent],
+  imports: [NgClass, ForkCharacterSheetComponent, CharacterSheetGhComponent, CharacterSheetFhComponent, CharacterSheetRpgComponent],
   selector: 'ghs-character-sheet',
   templateUrl: 'character-sheet.html',
   styleUrls: ['./character-sheet.scss']
@@ -24,6 +26,8 @@ export class CharacterSheetComponent extends CharacterSheetSection implements On
   private dialog = inject(Dialog);
   private ghsManager = inject(GhsManager);
 
+  // Fork: reduced sheet in the real app, upstream sheets in unit tests
+  forkSheet: boolean = forkLock.enabled;
   sheet: CharacterSheetType = 'gh';
   gh2e: boolean = false;
   cs: boolean = false;

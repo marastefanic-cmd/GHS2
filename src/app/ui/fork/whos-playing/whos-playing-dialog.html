@@ -9,6 +9,14 @@
       </a>
     }
   </div>
+  <p class="level-info">Average character level {{ averageLevel.toFixed(1) }} · recommended scenario level {{ recommendedLevel }}</p>
+  <div class="levels">
+    @for (l of levels; track l) {
+      <a tabclick class="level" [ngClass]="{ selected: level === l, recommended: recommendedLevel === l }" (click)="pickLevel(l)">{{
+        l
+      }}</a>
+    }
+  </div>
   <div class="buttons">
     <a tabclick class="cancel" (click)="cancel()">Cancel</a>
     <a tabclick class="confirm" [ngClass]="{ disabled: playing.size === 0 }" (click)="confirm()">{{ data.confirmLabel || 'Done' }}</a>

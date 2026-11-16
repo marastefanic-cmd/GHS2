@@ -1,0 +1,101 @@
+:host {
+  display: block;
+  --ghs-sheet-checkbox-z-index: 2;
+  --ghs-sheet-checkbox-size: 115%;
+  --ghs-sheet-checkbox-filter: var(--ghs-filter-darkgray);
+  --ghs-sheet-input-margin-left: calc(var(--ghs-unit) * 1 * var(--ghs-dialog-factor));
+  --ghs-sheet-input-text-flex-grow: 1;
+  --ghs-sheet-label-align-items: center;
+  --ghs-sheet-label-white-space: nowrap;
+}
+
+.character-sheet.fork-sheet {
+  position: relative;
+  background-color: var(--ghs-color-white);
+  color: var(--ghs-color-black);
+  font-size: calc(var(--ghs-unit) * 2.4 * var(--ghs-dialog-factor));
+}
+
+.fork-container {
+  box-sizing: border-box;
+  width: calc(var(--ghs-unit) * 62 * var(--ghs-dialog-factor));
+  max-width: 92vw;
+  padding: calc(var(--ghs-unit) * 2 * var(--ghs-dialog-factor));
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--ghs-unit) * 1.2 * var(--ghs-dialog-factor));
+}
+
+.fork-title {
+  display: flex;
+  align-items: center;
+  font-family: var(--ghs-font-title);
+  font-size: calc(var(--ghs-unit) * 3.5 * var(--ghs-dialog-factor));
+
+  img {
+    height: calc(var(--ghs-unit) * 4.5 * var(--ghs-dialog-factor));
+    width: auto;
+    margin-right: calc(var(--ghs-unit) * 1.5 * var(--ghs-dialog-factor));
+    filter: var(--ghs-filter-black, brightness(0));
+  }
+}
+
+.fork-headline {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-family: var(--ghs-font-title);
+  font-size: calc(var(--ghs-unit) * 2.8 * var(--ghs-dialog-factor));
+  border-bottom: calc(var(--ghs-unit) * 0.15) solid var(--ghs-color-darkgray);
+}
+
+.fork-perk-points {
+  font-family: var(--ghs-font-text);
+  font-size: calc(var(--ghs-unit) * 2 * var(--ghs-dialog-factor));
+
+  &.warning {
+    color: var(--ghs-color-red, #c00);
+    font-weight: bold;
+  }
+}
+
+.fork-levels {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: calc(var(--ghs-unit) * 0.8 * var(--ghs-dialog-factor));
+}
+
+.fork-level {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  font-family: var(--ghs-font-title);
+  font-size: calc(var(--ghs-unit) * 3 * var(--ghs-dialog-factor));
+  border: calc(var(--ghs-unit) * 0.25) solid var(--ghs-color-darkgray);
+  border-radius: calc(var(--ghs-unit) * 0.6);
+  color: var(--ghs-color-darkgray);
+
+  &.reached {
+    background-color: #ddd;
+    color: #000;
+  }
+
+  &.selected {
+    background-color: #222;
+    border-color: #222;
+    color: #fff;
+  }
+}
+
+.fork-perks {
+  // larger tap targets than the paper-style sheet
+  zoom: 1.25;
+}
+
+.denied {
+  .fork-level {
+    cursor: default;
+  }
+}

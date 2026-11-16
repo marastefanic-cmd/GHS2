@@ -30,6 +30,27 @@ export class WhosPlayingDialogComponent {
     return gameManager.characterManager.characterIcon(character.name, character.edition);
   }
 
+  levels: number[] = [0, 1, 2, 3, 4, 5, 6, 7];
+  /** scenario level picked by hand, undefined = use the recommended level */
+  pickedLevel: number | undefined;
+
+  get averageLevel(): number {
+    if (this.playing.size === 0) {
+      return 0;
+    }
+    let sum = 0;
+    this.playing.forEach((character) => (sum += character.level));
+    return sum / this.playing.size;
+  }
+
+  get recommendedLevel(): number {
+    return Math.min(7, Math.ceil(this.averageLevel / 2));
+  }
+
+  get level(): number {
+    return this.pickedLevel !== undefined ? this.pickedLevel : this.recommendedLevel;
+  }
+
   toggle(character: Character) {
     if (this.playing.has(character)) {
       this.playing.delete(character);
@@ -38,9 +59,17 @@ export class WhosPlayingDialogComponent {
     }
   }
 
+  pickLevel(level: number) {
+    this.pickedLevel = level === this.recommendedLevel ? undefined : level;
+  }
+
   confirm() {
     if (this.playing.size > 0) {
-      this.dialogRef.close(this.characters.filter((character) => this.playing.has(character)));
+      const result: WhosPlayingResult = {
+        playing: this.characters.filter((character) => this.playing.has(character)),
+        level: this.level
+      };
+      this.dialogRef.close(result);
     }
   }
 
@@ -53,12 +82,19 @@ export function whosPlayingCharacters(): Character[] {
   return gameManager.game.figures.filter((figure) => figure instanceof Character);
 }
 
+export type WhosPlayingResult = { playing: Character[]; level: number };
+
 /** Applies a selection from the dialog. Must be called between stateManager.before() and after(). */
-export function applyWhosPlaying(playing: Character[]) {
+export function applyWhosPlaying(result: WhosPlayingResult) {
   whosPlayingCharacters().forEach((character) => {
-    character.absent = !playing.includes(character);
+    character.absent = !result.playing.includes(character);
     if (character.absent && character.active) {
       gameManager.roundManager.toggleFigure(character);
     }
   });
+  // keep the app's level calculation and express the picked level as an adjustment to it
+  gameManager.game.levelCalculation = true;
+  gameManager.game.levelAdjustment = 0;
+  gameManager.game.levelAdjustment = result.level - gameManager.levelManager.scenarioLevel();
+  gameManager.levelManager.calculateScenarioLevel();
 }

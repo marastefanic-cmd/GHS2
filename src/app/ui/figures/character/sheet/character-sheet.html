@@ -1,4 +1,6 @@
-@if (sheet === 'rpg') {
+@if (forkSheet) {
+  <ghs-fork-character-sheet [character]="character" [editable]="editable()" [forceEdit]="forceEdit()" [dialogRef]="dialogRef()" />
+} @else if (sheet === 'rpg') {
   <ghs-character-sheet-rpg [character]="character" [editable]="editable()" [forceEdit]="forceEdit()" [dialogRef]="dialogRef()" />
 } @else {
   <div
