@@ -428,6 +428,17 @@ describe('AttackModifierManager', () => {
       expect(deck.cards.filter((am) => am.id === AttackModifierType.minus1).length).toBe(minus1Before - 2);
     });
 
+    it('gh2e item 33 removes one minus1 card from the deck', () => {
+      const character = buildCharacter('test-char', { edition: 'gh2e' });
+      character.progress.equippedItems = [{ name: '33', edition: 'gh2e' } as any];
+      const deck = new AttackModifierDeck();
+      const minus1Before = deck.cards.filter((am) => am.id === AttackModifierType.minus1).length;
+
+      attackModifierManager.applyCharacterPerks(character, deck);
+
+      expect(deck.cards.filter((am) => am.id === AttackModifierType.minus1).length).toBe(minus1Before - 1);
+    });
+
     it('skips all equipped-item effects when building a monster deck', () => {
       const character = buildCharacter('test-char', { edition: 'gh' });
       character.progress.equippedItems = [{ name: '101', edition: 'gh' } as any];

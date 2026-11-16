@@ -667,6 +667,12 @@ export class ItemManager {
       gameManager.attackModifierManager.shuffleModifiers(character.attackModifierDeck);
     }
 
+    // Fork: Gloomhaven 2nd Edition Second Skin changes the deck, apply right away while no scenario round is running
+    if (item.id === 33 && item.edition === 'gh2e' && gameManager.game.round === 0) {
+      character.attackModifierDeck = gameManager.attackModifierManager.buildCharacterAttackModifierDeck(character);
+      gameManager.attackModifierManager.shuffleModifiers(character.attackModifierDeck);
+    }
+
     if (item.id === 3 && item.edition === 'fh') {
       if (equipIndex === -1) {
         character.maxHealth += 1;

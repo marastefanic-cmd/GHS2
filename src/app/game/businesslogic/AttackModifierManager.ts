@@ -669,6 +669,14 @@ export class AttackModifierManager {
         }
       }
 
+      // Fork: Gloomhaven 2nd Edition Second Skin removes one -1 at the start of the scenario
+      if (character.progress.equippedItems.find((identifier) => identifier.edition === 'gh2e' && identifier.name === '33')) {
+        const minus1 = attackModifierDeck.cards.find((am) => am.id === AttackModifierType.minus1);
+        if (minus1) {
+          attackModifierDeck.cards.splice(attackModifierDeck.cards.indexOf(minus1), 1);
+        }
+      }
+
       if (character.progress.equippedItems.find((identifier) => identifier.edition === 'toa' && identifier.name === '107')) {
         const minus2 = attackModifierDeck.cards.find((am) => am.id === AttackModifierType.minus2);
         if (minus2) {
