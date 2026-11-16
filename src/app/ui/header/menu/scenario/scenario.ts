@@ -1,15 +1,18 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { NgClass } from '@angular/common';
 import { Component, OnInit, inject, output } from '@angular/core';
+import { forkLock } from 'src/app/fork-config';
 import { GameManager, gameManager } from 'src/app/game/businesslogic/GameManager';
 import { GhsManager } from 'src/app/game/businesslogic/GhsManager';
 import { SettingsManager, settingsManager } from 'src/app/game/businesslogic/SettingsManager';
+import { Character } from 'src/app/game/model/Character';
 import { ScenarioData } from 'src/app/game/model/data/ScenarioData';
 import { Spoilable, SpoilableMock } from 'src/app/game/model/data/Spoilable';
 import { GameState } from 'src/app/game/model/Game';
 import { Scenario, ScenarioCache } from 'src/app/game/model/Scenario';
 import { ScenarioRequirementsDialogComponent } from 'src/app/ui/figures/party/requirements/requirements';
 import { ScenarioChartDialogComponent } from 'src/app/ui/figures/party/scenario-chart/scenario-chart';
+import { WhosPlayingDialogComponent, applyWhosPlaying, whosPlayingCharacters } from 'src/app/ui/fork/whos-playing/whos-playing-dialog';
 import { GhsLabelDirective } from 'src/app/ui/helper/label';
 import { GhsRangePipe, GhsScenarioSearch } from 'src/app/ui/helper/Pipes';
 import { TabClickDirective } from 'src/app/ui/helper/tabclick';
@@ -202,6 +205,22 @@ export class ScenarioMenuComponent implements OnInit {
           panelClass: ['dialog'],
           data: { scenarioData: scenarioData }
         });
+      } else if (forkLock.enabled && whosPlayingCharacters().length > 1) {
+        // Fork: ask who's playing before the scenario is set up, so level and standees fit the players present
+        this.dialog
+          .open<Character[]>(WhosPlayingDialogComponent, { panelClass: ['dialog'], data: { confirmLabel: 'Start Scenario' } })
+          .closed.subscribe({
+            next: (playing) => {
+              if (playing) {
+                gameManager.stateManager.before('setScenario', ...gameManager.scenarioManager.scenarioUndoArgs(new Scenario(scenarioData)));
+                applyWhosPlaying(playing);
+                gameManager.scenarioManager.setScenario(scenarioData as Scenario);
+                gameManager.stateManager.after();
+                this.closed.emit();
+              }
+            }
+          });
+        return;
       } else {
         gameManager.stateManager.before('setScenario', ...gameManager.scenarioManager.scenarioUndoArgs(new Scenario(scenarioData)));
         gameManager.scenarioManager.setScenario(scenarioData as Scenario);

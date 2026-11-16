@@ -12,6 +12,7 @@ import { CharacterSheetSetAsideComponent } from 'src/app/ui/figures/character/sh
 import { CharacterSheetTitleComponent } from 'src/app/ui/figures/character/sheet/sections/title';
 import { CharacterSheetXpComponent } from 'src/app/ui/figures/character/sheet/sections/xp';
 import { CharacterItemsComponent } from 'src/app/ui/figures/items/items';
+import { ForkDeckChangesComponent } from 'src/app/ui/fork/deck-changes/deck-changes';
 import { GhsLabelDirective } from 'src/app/ui/helper/label';
 
 export const CLASSIC_SHEET_IMPORTS = [
@@ -29,5 +30,6 @@ export const CLASSIC_SHEET_IMPORTS = [
   CharacterSheetPersonalQuestComponent,
   CharacterSheetCountersComponent,
   CharacterSheetSetAsideComponent,
-  CharacterSheetImportExportComponent
+  CharacterSheetImportExportComponent,
+  ForkDeckChangesComponent
 ];

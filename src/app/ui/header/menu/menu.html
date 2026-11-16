@@ -113,6 +113,15 @@
             <a tabclick (click)="setActive(SubMenu.character_remove)"><span [ghs-label]="'character.remove'"></span></a>
           </div>
           <div
+            class="line span"
+            [ngClass]="{
+              disabled: characters().length < 2,
+              denied: gameManager.stateManager.permissions && !gameManager.stateManager.permissions.characters
+            }"
+          >
+            <a tabclick (click)="whosPlayingDialog()"><span>Who's Playing</span></a>
+          </div>
+          <div
             class="line"
             [ngClass]="{ denied: gameManager.stateManager.permissions && !gameManager.stateManager.permissions.characters }"
           >
@@ -126,10 +135,6 @@
             }"
           >
             <a tabclick (click)="setActive(SubMenu.objective_remove)"><span [ghs-label]="'objective.remove'"></span></a>
-          </div>
-          <div class="separator"></div>
-          <div class="line span">
-            <a tabclick (click)="setActive(SubMenu.campaign)"><span [ghs-label]="'campaign'"></span></a>
           </div>
           <div class="separator"></div>
         }

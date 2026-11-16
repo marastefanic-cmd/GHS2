@@ -29,6 +29,7 @@
       <label class="headline"><span [ghs-label]="'game.attackModifiers.perks'"></span></label>
       <ghs-character-sheet-perks [character]="character" [editable]="editable()" [forceEdit]="forceEdit()" />
     </div>
+    <ghs-fork-deck-changes class="row" [character]="character" [editable]="editable()" [forceEdit]="forceEdit()" />
     <div class="row battlegoals">
       @if (!cs()) {
         <label class="headline"><span [ghs-label]="'game.battleGoals'"></span></label>
@@ -47,10 +48,7 @@
     </div>
     <div class="column column-right notes">
       <ghs-character-sheet-player [character]="character" />
-      @if (!jotl) {
-        <ghs-character-sheet-personal-quest [character]="character" [editable]="editable()" [dialogRef]="dialogRef()" />
-      }
-      <ghs-character-sheet-counters [character]="character" [retirements]="!jotl" />
+      <ghs-character-sheet-counters [character]="character" [retirements]="false" />
       <ghs-character-sheet-set-aside [character]="character" [editable]="editable()" [dialogRef]="dialogRef()" />
       <hr class="compact-separator" />
       <ghs-character-sheet-import-export [character]="character" />

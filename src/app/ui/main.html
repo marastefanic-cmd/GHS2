@@ -100,15 +100,6 @@
               </div>
             </div>
           }
-          <div class="edition-hint">
-            @if (welcomeEditionHint) {
-              <p [ghs-label]="'data.edition.' + gameManager.game.edition + '.hint'"></p>
-            }
-            <label>
-              <input tabclick type="checkbox" [checked]="gameManager.game.party.campaignMode" (change)="toggleCampaignMode()" />
-              <span [ghs-label]="'party.campaignMode'"></span>
-            </label>
-          </div>
         </div>
       }
       <div class="container-row bordered">

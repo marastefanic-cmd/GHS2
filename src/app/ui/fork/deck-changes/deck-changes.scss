@@ -1,0 +1,46 @@
+:host {
+  display: block;
+}
+
+.deck-changes {
+  display: flex;
+  flex-direction: column;
+  margin: calc(var(--ghs-unit) * 1 * var(--ghs-dialog-factor)) 0;
+
+  .headline {
+    font-family: var(--ghs-font-title);
+    font-size: calc(var(--ghs-unit) * 2.2 * var(--ghs-dialog-factor));
+    margin-bottom: calc(var(--ghs-unit) * 0.5 * var(--ghs-dialog-factor));
+  }
+
+  .change {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-family: var(--ghs-font-text);
+    font-size: calc(var(--ghs-unit) * 1.7 * var(--ghs-dialog-factor));
+
+    &.disabled {
+      cursor: default;
+      opacity: 0.6;
+    }
+
+    input {
+      flex-shrink: 0;
+      margin-right: calc(var(--ghs-unit) * 1 * var(--ghs-dialog-factor));
+      color: #000;
+
+      // the app's check mark is light gray, which is invisible on the white sheet
+      &::before,
+      &:hover::before {
+        background-color: #000;
+      }
+    }
+  }
+
+  .hint {
+    font-family: var(--ghs-font-text);
+    font-style: italic;
+    font-size: calc(var(--ghs-unit) * 1.6 * var(--ghs-dialog-factor));
+  }
+}

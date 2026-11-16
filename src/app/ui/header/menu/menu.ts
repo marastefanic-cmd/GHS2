@@ -12,6 +12,7 @@ import { ObjectiveData } from 'src/app/game/model/data/ObjectiveData';
 import { GameState } from 'src/app/game/model/Game';
 import { Monster } from 'src/app/game/model/Monster';
 import { ObjectiveContainer } from 'src/app/game/model/ObjectiveContainer';
+import { applyWhosPlaying, WhosPlayingDialogComponent } from 'src/app/ui/fork/whos-playing/whos-playing-dialog';
 import { AboutMenuComponent } from 'src/app/ui/header/menu/about/about';
 import { CampaignMenuComponent } from 'src/app/ui/header/menu/campaign/campaign';
 import { CharacterMenuComponent } from 'src/app/ui/header/menu/character/character';
@@ -307,6 +308,19 @@ export class MainMenuComponent implements OnInit {
   feedbackDialog() {
     this.dialog.open(FeedbackDialogComponent, {
       panelClass: ['dialog']
+    });
+    this.close();
+  }
+
+  whosPlayingDialog() {
+    this.dialog.open<Character[]>(WhosPlayingDialogComponent, { panelClass: ['dialog'] }).closed.subscribe({
+      next: (playing) => {
+        if (playing) {
+          gameManager.stateManager.before('whosPlaying');
+          applyWhosPlaying(playing);
+          gameManager.stateManager.after();
+        }
+      }
     });
     this.close();
   }

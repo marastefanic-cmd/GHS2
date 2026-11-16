@@ -1,0 +1,16 @@
+<div class="whos-playing-dialog">
+  <p class="title">Who's playing today?</p>
+  <div class="characters">
+    @for (character of characters; track character.edition + character.name) {
+      <a tabclick class="character" [ngClass]="{ playing: playing.has(character) }" (click)="toggle(character)">
+        <img class="icon" [src]="icon(character)" />
+        <span class="name">{{ name(character) }}</span>
+        <span class="state">{{ playing.has(character) ? 'Playing' : 'Absent' }}</span>
+      </a>
+    }
+  </div>
+  <div class="buttons">
+    <a tabclick class="cancel" (click)="cancel()">Cancel</a>
+    <a tabclick class="confirm" [ngClass]="{ disabled: playing.size === 0 }" (click)="confirm()">{{ data.confirmLabel || 'Done' }}</a>
+  </div>
+</div>

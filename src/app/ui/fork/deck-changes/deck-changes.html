@@ -1,0 +1,12 @@
+<div class="deck-changes">
+  <label class="headline">Permanent deck changes</label>
+  @for (change of changes; track change.itemId) {
+    <label class="change" [class.disabled]="locked">
+      <input type="checkbox" [checked]="active(change)" [disabled]="locked" (change)="toggle(change)" />
+      <span>{{ change.label }}</span>
+    </label>
+  }
+  @if (nextScenarioHint) {
+    <span class="hint">Changes made during a scenario apply from the next scenario.</span>
+  }
+</div>

@@ -20,6 +20,10 @@ export const forkLock = { enabled: (globalThis as { ghsForkLock?: boolean }).ghs
  * here changes it for everyone. Anything not listed keeps the upstream default or the device's own value.
  */
 export const FORK_SETTINGS: Partial<Settings> = {
+  // Gameplay: monster and ally attack modifiers are drawn on the table, the party/campaign sheet is not used
+  monsterAttackModifierDeck: false,
+  allyAttackModifierDeck: false,
+  partySheet: false,
   // Display
   theme: 'default',
   automaticTheme: false,

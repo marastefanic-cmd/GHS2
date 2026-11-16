@@ -4324,6 +4324,8 @@
       "unlockChar": "Unlock {0}",
       "unlockPersonalQuest": "Unlock Personal Quest %data.personalQuest.{0}.{1}%",
       "unsetAbsent": "{0} present",
+      "whosPlaying": "Changed who's playing",
+      "forkDeckChange": "{0}: permanent deck changes",
       "unsetActive": "End turn of {0}",
       "unsetAllied": "{0} not as allied",
       "unsetAlly": "{0} as enemy",

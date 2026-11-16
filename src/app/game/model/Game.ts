@@ -81,7 +81,6 @@ export class Game {
     this.party = new Party();
     if (forkLock.enabled) {
       this.party.edition = FORK_EDITION;
-      this.party.campaignMode = true;
     }
     this.parties = [this.party];
   }
