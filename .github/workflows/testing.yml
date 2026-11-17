@@ -19,7 +19,7 @@ jobs:
           cache: npm
       - name: npm i and npm test
         run: |
-          npm ci
+          npm install --no-audit --no-fund
           npm test -- --watch=false
       - name: lint
         run: npm run lint
